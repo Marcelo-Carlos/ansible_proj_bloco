@@ -1,0 +1,6 @@
+---
+# tasks file for ntp
+- name: Instala o serviço NTP
+  apt: name=ntp state=present 
+- name: Garante que o serviço NTP esta rodando
+  service: name=ntp state=started enabled=yes 

@@ -1,0 +1,9 @@
+---
+- hosts: all  
+  remote_user: msaca
+  become: yes
+  roles:
+  - ntp 
+  - mysql
+  - robotframework  
+ 

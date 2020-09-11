@@ -1,0 +1,33 @@
+---
+# tasks file for robotframework
+- name: Cria variavies default Python
+  include_vars: "../vars/main.yml"
+  tags: python
+
+- name: Cria variavies default Robotframework
+  include_vars: "../vars/main.yml"
+  tags: robotframework
+
+- name: Prepara diretorios
+  file:
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}"
+    mode: "{{ item.mode | default('0755') }}"
+    state: "{{ item.state | default('directory') }}"
+  loop:
+    - { dest: "/etc/bash_completion.d" }
+  tags: python
+
+- name: Instala Python3
+  command:
+     cmd: apt install python3.7
+
+- name: Instala Robotframework  
+  command:
+     cmd: pip install robotframework
+
+- name: Instala Robotframework-selenium library 
+  command:
+     cmd: pip install robotframework-seleniumlibrary
+     

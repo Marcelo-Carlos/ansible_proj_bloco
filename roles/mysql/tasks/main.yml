@@ -1,0 +1,20 @@
+---
+# tasks file for mysql
+- name: Atualiza o cache apt de nosso servidor
+  apt: update_cache=yes cache_valid_time=3600
+ 
+- name: Instala os pacotes necessarios
+  apt: name={{ item }} state=present
+  with_items:
+  - mysql-server
+  - ntp
+  - python-mysqldb
+
+- name: Cria o banco de dados para o Robot
+  mysql_db: name={{ rf_mysql_db }} state=present
+   
+- name: Cria um usuario de banco para o Robot
+  mysql_user:
+    name={{ wp_mysql_user }}
+    password={{ rf_mysql_password }}
+    priv=*.*:ALL
